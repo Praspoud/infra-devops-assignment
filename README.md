@@ -29,7 +29,7 @@ usermod -aG sudo trainee
 su - trainee
 ```
 
-### 2. Setup and Harden Key Based SSH Authentication
+### 3. Setup and Harden Key Based SSH Authentication
 
 <figure>
   <img src="linux-provision/CreateKey.png" alt="CreateKey">
@@ -94,7 +94,7 @@ sudo systemctl restart ssh
 
 <br>
 
-### 2. Enable and Configure UFW
+### 4. Enable and Configure UFW
 
 <figure>
   <img src="linux-provision/UFW.png" alt="UFW">
@@ -113,3 +113,65 @@ sudo ufw allow 80/tcp comment 'HTTP'
 sudo ufw allow 443/tcp comment 'HTTPS'
 sudo ufw --force enable
 ```
+
+### 5. Docker Setup
+
+<figure>
+  <img src="docker-setup/DockerInstall.png" alt="DockerInstall">
+  <figcaption>Figure 9: Docker Installation.</figcaption>
+</figure>
+
+<br>
+<br>
+
+* Install docker and add it to sudo group
+```bash
+# Add Docker's official GPG key:
+sudo apt update
+sudo apt install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+sudo tee /etc/apt/sources.list.d/docker.sources <<EOF
+Types: deb
+URIs: https://download.docker.com/linux/ubuntu
+Suites: $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}")
+Components: stable
+Architectures: $(dpkg --print-architecture)
+Signed-By: /etc/apt/keyrings/docker.asc
+EOF
+
+sudo apt update
+
+sudo usermod -aG docker trainee
+```
+<br>
+
+<figure>
+  <img src="docker-setup/DockerPS.png" alt="DockerPS">
+  <figcaption>Figure 10: Docker Containers.</figcaption>
+</figure>
+
+<br>
+<br>
+
+```bash
+docker compose up -d
+```
+<br>
+
+<figure>
+  <img src="docker-setup/PortForward.png" alt="PortForward">
+  <figcaption>Figure 11: Port Forward in Virtual Box for Accessing the app from the Browser.</figcaption>
+</figure>
+
+<br>
+
+<figure>
+  <img src="docker-setup/AppWorking.png" alt="AppWorking">
+  <figcaption>Figure 12: App access fromt the Browser.</figcaption>
+</figure>
+
+<br>
