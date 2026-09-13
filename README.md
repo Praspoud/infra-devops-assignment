@@ -145,6 +145,8 @@ EOF
 
 sudo apt update
 
+sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
 sudo usermod -aG docker trainee
 ```
 <br>
@@ -158,8 +160,10 @@ sudo usermod -aG docker trainee
 <br>
 <br>
 
+* Run the containers with docker compose and list it
 ```bash
 docker compose up -d
+docker ps
 ```
 <br>
 <br>
@@ -174,7 +178,7 @@ docker compose up -d
 
 <figure>
   <img src="docker-setup/AppWorking.png" alt="AppWorking">
-  <figcaption>Figure 12: App access fromt the Browser.</figcaption>
+  <figcaption>Figure 12: App access from the Browser.</figcaption>
 </figure>
 
 <br>
