@@ -13,15 +13,23 @@ log_alert() {
     echo "$timestamp [WARNING] $msg" | sudo tee -a "$LOG_FILE" > /dev/null
 }
 
+log_alert_nowarn() {
+    local msg="$1"
+    local timestamp
+    timestamp=$(date "+%Y-%m-%d %H:%M:%S")
+    echo -e "\033[0;31m\033[0m $msg"
+    echo "$timestamp $msg" | sudo tee -a "$LOG_FILE" > /dev/null
+}
+
 # 1. Resource Utilization Metrics
 CPU_USAGE=$(top -bn1 | grep "Cpu(s)" | awk '{print 100 - $8}')
 RAM_USAGE=$(free -m | awk '/Mem:/ { printf("%.2f"), $3/$2 * 100 }')
 ROOT_DISK_USAGE=$(df / | awk 'NR==2 {gsub("%",""); print $5}')
 
-echo "=== System Health Metrics ==="
-echo "CPU Usage:      ${CPU_USAGE}%"
-echo "RAM Usage:      ${RAM_USAGE}%"
-echo "Root Disk Usage: ${ROOT_DISK_USAGE}%"
+log_alert_nowarn "=== System Health Metrics ==="
+log_alert_nowarn "CPU Usage:      ${CPU_USAGE}%"
+log_alert_nowarn "RAM Usage:      ${RAM_USAGE}%"
+log_alert_nowarn "Root Disk Usage: ${ROOT_DISK_USAGE}%"
 
 # 2. Check Docker Daemon
 if ! systemctl is-active --quiet docker; then
