@@ -148,6 +148,7 @@ sudo apt update
 sudo usermod -aG docker trainee
 ```
 <br>
+<br>
 
 <figure>
   <img src="docker-setup/DockerPS.png" alt="DockerPS">
@@ -161,12 +162,14 @@ sudo usermod -aG docker trainee
 docker compose up -d
 ```
 <br>
+<br>
 
 <figure>
   <img src="docker-setup/PortForward.png" alt="PortForward">
   <figcaption>Figure 11: Port Forward in Virtual Box for Accessing the app from the Browser.</figcaption>
 </figure>
 
+<br>
 <br>
 
 <figure>
@@ -175,3 +178,31 @@ docker compose up -d
 </figure>
 
 <br>
+
+### 6. Health Check Script
+
+<figure>
+  <img src="script-setup/ScriptCron.png" alt="ScriptCron">
+  <figcaption>Figure 13: Setup Script and Add it to Cron.</figcaption>
+</figure>
+
+<br>
+<br>
+
+* Copy the script and setup cron
+```bash
+sudo mkdir -p /opt/scripts
+sudo mv infra_health_check.sh /opt/scripts/
+sudo chmod 750 /opt/scripts/infra_health_check.sh
+sudo touch /var/log/infra_health.log
+sudo chmod 666 /var/log/infra_health.log
+crontab -e
+```
+
+<br>
+<br>
+
+<figure>
+  <img src="script-setup/HealthCheckLog.png" alt="HealthCheckLog">
+  <figcaption>Figure 14: Health Check Log Output from Cron.</figcaption>
+</figure>
