@@ -206,3 +206,35 @@ crontab -e
   <img src="script-setup/HealthCheckLog.png" alt="HealthCheckLog">
   <figcaption>Figure 14: Health Check Log Output from Cron.</figcaption>
 </figure>
+
+<br>
+
+### 6. DB Backup
+
+<figure>
+  <img src="script-setup/DBBackup.png" alt="DBBackup">
+  <figcaption>Figure 15: DB Backup Successful.</figcaption>
+</figure>
+
+<br>
+<br>
+
+* Copy the script and setup cron
+```bash
+sudo mv db_backup.sh /opt/scripts/
+sudo chmod 750 /opt/scripts/ db_backup.sh
+```
+<br>
+<br>
+
+<figure>
+  <img src="script-setup/DBRestore.png" alt="DBRestore">
+  <figcaption>Figure 16: DB Restore Successful.</figcaption>
+</figure>
+
+<br>
+<br>
+
+```bash
+sudo gunzip -c /var/backups/db/db_backup_YYYYMMDD.sql.gz | docker exec -i db_postgres psql -U appuser -d appdb
+```
