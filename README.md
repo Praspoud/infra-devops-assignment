@@ -238,3 +238,21 @@ sudo chmod 750 /opt/scripts/ db_backup.sh
 ```bash
 sudo gunzip -c /var/backups/db/db_backup_YYYYMMDD.sql.gz | docker exec -i db_postgres psql -U appuser -d appdb
 ```
+
+### 7. Metrics/Monitoring
+
+<figure>
+  <img src="monitor-setup/Prometheus.png" alt="Prometheus">
+  <figcaption>Figure 17: Prometheus Installation and Metrics Output.</figcaption>
+</figure>
+
+<br>
+<br>
+
+* Install prometheus-node-exporter and output the metrics collected
+```bash
+sudo apt install -y prometheus-node-exporter
+sudo systemctl enable --now prometheus-node-exporter
+
+curl -s http://localhost:9100/metrics | head -n 20
+```
